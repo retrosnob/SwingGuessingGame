@@ -40,15 +40,16 @@ public class Model {
         // This is where I will see what the user's guess is 
         // and decide on what message to give them.
         // Notice that this method accepts an int.
+        status = "You guessed " + guess + ". ";
         
         if (guess > theNumber) {
-            status = "Your guess was too high!";
+            status = status + "Your guess was too high!";
         }
         else if (guess < theNumber) {
-            status = "Your guess was too low!";            
+            status = status + "Your guess was too low!";            
         }
         else {
-            status = "You guessed correctly!";
+            status = status + "You guessed correctly!";
         }
         
         

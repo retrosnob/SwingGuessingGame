@@ -10,7 +10,7 @@ package guessinggame;
  * @author justin
  */
 public class ViewController extends javax.swing.JFrame {
-    
+
     Model model;
 
     /**
@@ -18,13 +18,13 @@ public class ViewController extends javax.swing.JFrame {
      */
     public ViewController(Model model) {
         initComponents();
-        
+
         // Keep a global reference to the model that was passed in.
         this.model = model;
-        
+
         // This is where I call the model's newGame() method.
         model.newGame();
-        
+
         // Set the initial status message...
         lblStatus.setText(model.getStatus());
     }
@@ -94,8 +94,18 @@ public class ViewController extends javax.swing.JFrame {
         );
 
         btnNewGame.setText("New Game");
+        btnNewGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewGameActionPerformed(evt);
+            }
+        });
 
         btnQuit.setText("Quit");
+        btnQuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,16 +139,32 @@ public class ViewController extends javax.swing.JFrame {
 
     private void btnGuessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuessActionPerformed
         // They pressed the Guess button.
-        int guess = Integer.parseInt(txtGuess.getText());
-        
-        // Give the guess to the model...
-        model.processUserGuess(guess);
-        
-        // And update our status...
-        lblStatus.setText(model.getStatus());
-        
+        try {
+            int guess = Integer.parseInt(txtGuess.getText());
+
+            // Give the guess to the model...
+            model.processUserGuess(guess);
+
+            // And update our status...
+            lblStatus.setText(model.getStatus());
+        } catch (NumberFormatException e) {
+            lblStatus.setText("Please enter a number.");
+        } finally {
+            txtGuess.setText("");
+        }
+
     }//GEN-LAST:event_btnGuessActionPerformed
 
+    private void btnQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitActionPerformed
+        // This is the code for my quit button
+        this.dispose();
+    }//GEN-LAST:event_btnQuitActionPerformed
+
+    private void btnNewGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewGameActionPerformed
+        // This is the code for my New Game button
+        model.newGame();
+        lblStatus.setText(model.getStatus());
+    }//GEN-LAST:event_btnNewGameActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
